@@ -65,16 +65,16 @@ ODBC driver for OGDI.
 Sterownik ODBC do OGDI.
 
 %package -n tcl-ogdi
-Summary:	TCL wrapper for OGDI
-Summary(pl):	Interfejs TCL do OGDI
+Summary:	Tcl wrapper for OGDI
+Summary(pl):	Interfejs Tcl do OGDI
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description -n tcl-ogdi
-TCL wrapper for OGDI.
+Tcl wrapper for OGDI.
 
 %description -n tcl-ogdi -l pl
-Interfejs TCL do OGDI.
+Interfejs Tcl do OGDI.
 
 %prep
 %setup -q

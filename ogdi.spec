@@ -29,7 +29,7 @@ client/server architecture to facilitate the dissemination of
 geospatial data products over any TCP/IP network, and a
 driver-oriented approach to facilitate access to several geospatial
 data products/formats.
-		  
+
 %description -l pl
 OGDI (Open Geographic Datastore Interface) oznacza otwarty interfejs
 do danych geograficznych. OGDI to API u¿ywaj±ce ustandaryzowanych

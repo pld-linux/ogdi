@@ -6,7 +6,7 @@ Version:	3.1.1
 Release:	1
 License:	BSD-like
 Group:		Applications
-Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/ogdi/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 Patch0:		%{name}-driversdir.patch
 URL:		http://ogdi.sourceforge.net/

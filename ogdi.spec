@@ -2,12 +2,12 @@
 Summary:	Open Geographic Datastore Interface
 Summary(pl):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
-Version:	3.1.2
-Release:	3
+Version:	3.1.4
+Release:	1
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
-# Source0-md5:	4e9051d090ae91609a2ee55dfde29245
+# Source0-md5:	d54a5dcce211e37b8ba317531312ff55
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		%{name}-driversdir.patch
@@ -44,7 +44,7 @@ geograficznych.
 Summary:	OGDI header files and documentation
 Summary(pl):	Pliki nag³ówkowe i dokumentacja OGDI
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 OGDI header files and developer's documentation.
@@ -56,7 +56,7 @@ Pliki nag³ówkowe i dokumentacja programisty do OGDI.
 Summary:	ODBC driver for OGDI
 Summary(pl):	Sterownik ODBC do OGDI
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description odbc
 ODBC driver for OGDI.
@@ -68,7 +68,7 @@ Sterownik ODBC do OGDI.
 Summary:	Tcl wrapper for OGDI
 Summary(pl):	Interfejs Tcl do OGDI
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description -n tcl-ogdi
 Tcl wrapper for OGDI.

@@ -45,6 +45,7 @@ Summary:	OGDI header files and documentation
 Summary(pl):	Pliki nag³ówkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	proj-devel
 
 %description devel
 OGDI header files and developer's documentation.

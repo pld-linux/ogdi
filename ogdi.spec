@@ -3,7 +3,7 @@ Summary:	Open Geographic Datastore Interface
 Summary(pl):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.2
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
@@ -11,6 +11,7 @@ Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		%{name}-driversdir.patch
+Patch1:		%{name}-pic.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
@@ -77,7 +78,8 @@ Interfejs TCL do OGDI.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 cp -f %{SOURCE1} .
 

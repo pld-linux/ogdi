@@ -7,7 +7,9 @@ Release:	1
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
+# Source0-md5:	ff7ee9f2ed68699ca13d568ab8e3393d
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
+# Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		%{name}-driversdir.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf

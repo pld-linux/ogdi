@@ -20,7 +20,7 @@ URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
 BuildRequires:	proj-devel
-%{?with_tcl:uildRequires:	tcl-devel}
+%{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

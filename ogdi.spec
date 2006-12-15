@@ -1,4 +1,5 @@
 # TODO: separate gltpd to -server package, add init script (requires portmap)
+#
 # Conditional build:
 %bcond_without	tcl		# disable gui and nviz
 %bcond_without	odbc	# disable unixODBC support

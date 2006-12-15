@@ -150,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ogdi_*
 %attr(755,root,root) %{_libdir}/libogdi*.so
 %dir %{_libdir}/ogdi
-%attr(755,root,root) %{_libdir}/ogdi/lib[^l]*.so
+%attr(755,root,root) %{_libdir}/ogdi/lib[!l]*.so
 
 %files devel
 %defattr(644,root,root,755)

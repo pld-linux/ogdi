@@ -1,9 +1,13 @@
 # TODO: separate gltpd to -server package, add init script (requires portmap)
+# Conditional build:
+%bcond_without	tcl		# disable gui and nviz
+%bcond_without	odbc	# disable unixODBC support
+#
 Summary:	Open Geographic Datastore Interface
 Summary(pl):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.5
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
@@ -16,8 +20,8 @@ URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
 BuildRequires:	proj-devel
-BuildRequires:	tcl-devel
-BuildRequires:	unixODBC-devel
+%{?with_tcl:uildRequires:	tcl-devel}
+%{?with_odbc:BuildRequires:	unixODBC-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -95,14 +99,18 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 %{__make} \
 	OPTIMIZATION="%{rpmcflags}"
 
+%if %{with tcl}
 %{__make} -C ogdi/tcl_interface \
 	OPTIMIZATION="%{rpmcflags}" \
 	TCL_LINKLIB="-ltcl"
+%endif
 %{__make} -C contrib/gdal \
 	OPTIMIZATION="%{rpmcflags}"
+%if %{with odbc}
 %{__make} -C ogdi/attr_driver/odbc \
 	OPTIMIZATION="%{rpmcflags}" \
 	ODBC_LINKLIB="-lodbc"
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -114,12 +122,16 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi \
 	INST_BIN=$RPM_BUILD_ROOT%{_bindir}
 
+%if %{with tcl}
 %{__make} install -C ogdi/tcl_interface \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
+%endif
 %{__make} install -C contrib/gdal \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi
+%if %{with odbc}
 %{__make} install -C ogdi/attr_driver/odbc \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi
+%endif
 
 # only libogdi* is common library, the rest are dlopened drivers
 mv -f $RPM_BUILD_ROOT%{_libdir}/ogdi/libogdi*.so $RPM_BUILD_ROOT%{_libdir}
@@ -144,10 +156,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc ogdi.pdf
 %{_includedir}/*.h
 
+%if %{with odbc}
 %files odbc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/ogdi/liblodbc.so
+%endif
 
+%if %{with tcl}
 %files -n tcl-ogdi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecs_tcl.so
+%endif

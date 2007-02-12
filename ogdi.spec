@@ -5,7 +5,7 @@
 %bcond_without	odbc	# disable unixODBC support
 #
 Summary:	Open Geographic Datastore Interface
-Summary(pl):	OGDI - otwarty interfejs do danych geograficznych
+Summary(pl.UTF-8):   OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.5
 Release:	2
@@ -36,18 +36,18 @@ geospatial data products over any TCP/IP network, and a
 driver-oriented approach to facilitate access to several geospatial
 data products/formats.
 
-%description -l pl
+%description -l pl.UTF-8
 OGDI (Open Geographic Datastore Interface) oznacza otwarty interfejs
-do danych geograficznych. OGDI to API u¿ywaj±ce ustandaryzowanych
-metod dostêpu do pracy z pakietami oprogramowania GIS i ró¿nymi danymi
-geograficznymi. OGDI u¿ywa architektury klient-serwer aby udostêpniaæ
-dane po dowolnej sieci TCP/IP oraz podej¶cia bazuj±cego na
-sterownikach aby zapewniæ dostêp do ró¿nych produktów/formatów danych
+do danych geograficznych. OGDI to API uÅ¼ywajÄ…ce ustandaryzowanych
+metod dostÄ™pu do pracy z pakietami oprogramowania GIS i rÃ³Å¼nymi danymi
+geograficznymi. OGDI uÅ¼ywa architektury klient-serwer aby udostÄ™pniaÄ‡
+dane po dowolnej sieci TCP/IP oraz podejÅ›cia bazujÄ…cego na
+sterownikach aby zapewniÄ‡ dostÄ™p do rÃ³Å¼nych produktÃ³w/formatÃ³w danych
 geograficznych.
 
 %package devel
 Summary:	OGDI header files and documentation
-Summary(pl):	Pliki nag³ówkowe i dokumentacja OGDI
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	proj-devel
@@ -55,31 +55,31 @@ Requires:	proj-devel
 %description devel
 OGDI header files and developer's documentation.
 
-%description devel -l pl
-Pliki nag³ówkowe i dokumentacja programisty do OGDI.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe i dokumentacja programisty do OGDI.
 
 %package odbc
 Summary:	ODBC driver for OGDI
-Summary(pl):	Sterownik ODBC do OGDI
+Summary(pl.UTF-8):   Sterownik ODBC do OGDI
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description odbc
 ODBC driver for OGDI.
 
-%description odbc -l pl
+%description odbc -l pl.UTF-8
 Sterownik ODBC do OGDI.
 
 %package -n tcl-ogdi
 Summary:	Tcl wrapper for OGDI
-Summary(pl):	Interfejs Tcl do OGDI
+Summary(pl.UTF-8):   Interfejs Tcl do OGDI
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description -n tcl-ogdi
 Tcl wrapper for OGDI.
 
-%description -n tcl-ogdi -l pl
+%description -n tcl-ogdi -l pl.UTF-8
 Interfejs Tcl do OGDI.
 
 %prep

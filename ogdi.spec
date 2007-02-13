@@ -5,7 +5,7 @@
 %bcond_without	odbc	# disable unixODBC support
 #
 Summary:	Open Geographic Datastore Interface
-Summary(pl.UTF-8):   OGDI - otwarty interfejs do danych geograficznych
+Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.5
 Release:	2
@@ -47,7 +47,7 @@ geograficznych.
 
 %package devel
 Summary:	OGDI header files and documentation
-Summary(pl.UTF-8):   Pliki nagłówkowe i dokumentacja OGDI
+Summary(pl.UTF-8):	Pliki nagłówkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	proj-devel
@@ -60,7 +60,7 @@ Pliki nagłówkowe i dokumentacja programisty do OGDI.
 
 %package odbc
 Summary:	ODBC driver for OGDI
-Summary(pl.UTF-8):   Sterownik ODBC do OGDI
+Summary(pl.UTF-8):	Sterownik ODBC do OGDI
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -72,7 +72,7 @@ Sterownik ODBC do OGDI.
 
 %package -n tcl-ogdi
 Summary:	Tcl wrapper for OGDI
-Summary(pl.UTF-8):   Interfejs Tcl do OGDI
+Summary(pl.UTF-8):	Interfejs Tcl do OGDI
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 

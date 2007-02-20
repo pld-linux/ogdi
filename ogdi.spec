@@ -7,16 +7,15 @@
 Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
-Version:	3.1.5
-Release:	2
+Version:	3.1.6
+Release:	1
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
-# Source0-md5:	9ccf8202b63875a68ded23588bd49544
+# Source0-md5:	212ad71896aa70528ed139c95bed6511
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
-Patch0:		%{name}-driversdir.patch
-Patch1:		%{name}-pic.patch
+Patch0:		%{name}-pic.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
@@ -85,7 +84,6 @@ Interfejs Tcl do OGDI.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 cp -f %{SOURCE1} .
 
@@ -97,7 +95,10 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	--with-proj \
 	--with-zlib
 
+# bash because of pushd/popd used in makefiles
 %{__make} \
+	SHELL=/bin/bash \
+	INST_LIB=%{_libdir} \
 	OPTIMIZATION="%{rpmcflags}"
 
 %if %{with tcl}
@@ -109,7 +110,7 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	OPTIMIZATION="%{rpmcflags}"
 %if %{with odbc}
 %{__make} -C ogdi/attr_driver/odbc \
-	OPTIMIZATION="%{rpmcflags}" \
+	OPTIMIZATION="%{rpmcflags} -DDONT_TD_VOID" \
 	ODBC_LINKLIB="-lodbc"
 %endif
 
@@ -119,8 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 
 %{__make} install \
+	SHELL=/bin/bash \
 	INST_INCLUDE=$RPM_BUILD_ROOT%{_includedir} \
-	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi \
+	INST_LIB=$RPM_BUILD_ROOT%{_libdir} \
 	INST_BIN=$RPM_BUILD_ROOT%{_bindir}
 
 %if %{with tcl}
@@ -128,14 +130,11 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %endif
 %{__make} install -C contrib/gdal \
-	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi
+	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %if %{with odbc}
 %{__make} install -C ogdi/attr_driver/odbc \
-	INST_LIB=$RPM_BUILD_ROOT%{_libdir}/ogdi
+	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %endif
-
-# only libogdi* is common library, the rest are dlopened drivers
-mv -f $RPM_BUILD_ROOT%{_libdir}/ogdi/libogdi*.so $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -148,13 +147,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE NEWS
 %attr(755,root,root) %{_bindir}/gltpd
 %attr(755,root,root) %{_bindir}/ogdi_*
-%attr(755,root,root) %{_libdir}/libogdi*.so
+%attr(755,root,root) %{_libdir}/libogdi.so.*.*
 %dir %{_libdir}/ogdi
 %attr(755,root,root) %{_libdir}/ogdi/lib[!l]*.so
 
 %files devel
 %defattr(644,root,root,755)
 %doc ogdi.pdf
+%attr(755,root,root) %{_libdir}/libogdi.so
 %{_includedir}/*.h
 
 %if %{with odbc}
@@ -166,5 +166,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with tcl}
 %files -n tcl-ogdi
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecs_tcl.so
+%attr(755,root,root) %{_libdir}/ogdi/libecs_tcl.so
 %endif

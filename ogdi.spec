@@ -8,7 +8,7 @@ Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.6
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Applications
 Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
@@ -96,20 +96,20 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	--with-zlib
 
 # bash because of pushd/popd used in makefiles
-%{__make} \
+%{__make} -j 1 \
 	SHELL=/bin/bash \
 	INST_LIB=%{_libdir} \
 	OPTIMIZATION="%{rpmcflags}"
 
 %if %{with tcl}
-%{__make} -C ogdi/tcl_interface \
+%{__make} -j 1 -C ogdi/tcl_interface \
 	OPTIMIZATION="%{rpmcflags}" \
 	TCL_LINKLIB="-ltcl"
 %endif
-%{__make} -C contrib/gdal \
+%{__make} -j 1 -C contrib/gdal \
 	OPTIMIZATION="%{rpmcflags}"
 %if %{with odbc}
-%{__make} -C ogdi/attr_driver/odbc \
+%{__make} -j 1 -C ogdi/attr_driver/odbc \
 	OPTIMIZATION="%{rpmcflags} -DDONT_TD_VOID" \
 	ODBC_LINKLIB="-lodbc"
 %endif
@@ -119,20 +119,20 @@ rm -rf $RPM_BUILD_ROOT
 
 TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 
-%{__make} install \
+%{__make} -j 1 install \
 	SHELL=/bin/bash \
 	INST_INCLUDE=$RPM_BUILD_ROOT%{_includedir} \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir} \
 	INST_BIN=$RPM_BUILD_ROOT%{_bindir}
 
 %if %{with tcl}
-%{__make} install -C ogdi/tcl_interface \
+%{__make} -j 1 install -C ogdi/tcl_interface \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %endif
-%{__make} install -C contrib/gdal \
+%{__make} -j 1 install -C contrib/gdal \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %if %{with odbc}
-%{__make} install -C ogdi/attr_driver/odbc \
+%{__make} -j 1 install -C ogdi/attr_driver/odbc \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %endif
 

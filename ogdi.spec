@@ -8,18 +8,19 @@ Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.1.6
-Release:	4
+Release:	5
 License:	BSD-like
-Group:		Applications
-Source0:	http://dl.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
+Group:		Applications/Databases
+Source0:	http://downloads.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
 # Source0-md5:	212ad71896aa70528ed139c95bed6511
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		%{name}-pic.patch
+Patch1:		%{name}-proj480.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
-BuildRequires:	proj-devel
+BuildRequires:	proj-devel >= 4.8
 %{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
 BuildRequires:	zlib-devel
@@ -49,7 +50,7 @@ Summary:	OGDI header files and documentation
 Summary(pl.UTF-8):	Pliki nagłówkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	proj-devel
+Requires:	proj-devel >= 4.8
 
 %description devel
 OGDI header files and developer's documentation.
@@ -84,6 +85,7 @@ Interfejs Tcl do OGDI.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 cp -f %{SOURCE1} .
 
@@ -148,14 +150,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gltpd
 %attr(755,root,root) %{_bindir}/ogdi_*
 %attr(755,root,root) %{_libdir}/libogdi.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libogdi.so.3
 %dir %{_libdir}/ogdi
-%attr(755,root,root) %{_libdir}/ogdi/lib[!l]*.so
+%attr(755,root,root) %{_libdir}/ogdi/libadrg.so
+%attr(755,root,root) %{_libdir}/ogdi/libdtcanada.so
+%attr(755,root,root) %{_libdir}/ogdi/libdted.so
+%attr(755,root,root) %{_libdir}/ogdi/libdtusa.so
+%attr(755,root,root) %{_libdir}/ogdi/libgdal.so
+%attr(755,root,root) %{_libdir}/ogdi/libremote.so
+%attr(755,root,root) %{_libdir}/ogdi/librpf.so
+%attr(755,root,root) %{_libdir}/ogdi/libskeleton.so
+%attr(755,root,root) %{_libdir}/ogdi/libvrf.so
 
 %files devel
 %defattr(644,root,root,755)
 %doc ogdi.pdf
 %attr(755,root,root) %{_libdir}/libogdi.so
-%{_includedir}/*.h
+%{_includedir}/ecs.h
+%{_includedir}/ecs_util.h
 
 %if %{with odbc}
 %files odbc

@@ -1,0 +1,11 @@
+--- ogdi-3.1.6/contrib/gdal/gdalbridge.c.orig	2001-05-04 05:13:35.000000000 +0200
++++ ogdi-3.1.6/contrib/gdal/gdalbridge.c	2012-09-29 17:39:38.079579102 +0200
+@@ -124,7 +124,7 @@
+ 
+         if( pfnTest == NULL )
+         {
+-            sprintf( szPath, papszSOFilenames[iSOFile] );
++            strcpy( szPath, papszSOFilenames[iSOFile] );
+             pfnTest = GBGetSymbol( szPath, "GDALOpen" );
+         }
+     }

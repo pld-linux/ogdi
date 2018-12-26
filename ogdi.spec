@@ -1,23 +1,23 @@
 # TODO: separate gltpd to -server package, add init script (requires portmap)
 #
 # Conditional build:
-%bcond_without	tcl		# disable gui and nviz
+%bcond_without	tcl	# disable gui and nviz
 %bcond_without	odbc	# disable unixODBC support
 #
 Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
-Version:	3.1.6
-Release:	11
+Version:	3.2.1
+Release:	1
 License:	BSD-like
 Group:		Applications/Databases
-Source0:	http://downloads.sourceforge.net/ogdi/%{name}-%{version}.tar.gz
-# Source0-md5:	212ad71896aa70528ed139c95bed6511
+#Source0Download: https://github.com/libogdi/ogdi/releases/
+Source0:	https://github.com/libogdi/ogdi/archive/ogdi_3_2_1/%{name}-%{version}.tar.gz
+# Source0-md5:	8d2e2214b2748d254d7b12e529a6fa53
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		%{name}-pic.patch
-Patch1:		%{name}-proj480.patch
-Patch2:		%{name}-format.patch
+Patch1:		%{name}-format.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
@@ -84,10 +84,9 @@ Tcl wrapper for OGDI.
 Interfejs Tcl do OGDI.
 
 %prep
-%setup -q
+%setup -q -n ogdi-ogdi_3_2_1
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 cp -f %{SOURCE1} .
 
@@ -139,6 +138,8 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 %{__make} -j 1 install -C ogdi/attr_driver/odbc \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
 %endif
+
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/example?
 
 %clean
 rm -rf $RPM_BUILD_ROOT

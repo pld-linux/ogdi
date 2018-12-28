@@ -8,7 +8,7 @@ Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	3.2.1
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Databases
 #Source0Download: https://github.com/libogdi/ogdi/releases/
@@ -22,6 +22,7 @@ URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
 BuildRequires:	proj-devel >= 4.8
+BuildRequires:	rpmbuild(macros) >= 1.446
 %{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
 BuildRequires:	zlib-devel
@@ -128,6 +129,11 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir} \
 	INST_BIN=$RPM_BUILD_ROOT%{_bindir}
 
+# omitted from make install
+install -d $RPM_BUILD_ROOT%{_pkgconfigdir}
+cp -p ogdi.pc $RPM_BUILD_ROOT%{_pkgconfigdir}
+install ogdi-config $RPM_BUILD_ROOT%{_bindir}
+
 %if %{with tcl}
 %{__make} -j 1 install -C ogdi/tcl_interface \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir}
@@ -168,9 +174,11 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc ogdi.pdf
+%attr(755,root,root) %{_bindir}/ogdi-config
 %attr(755,root,root) %{_libdir}/libogdi.so
 %{_includedir}/ecs.h
 %{_includedir}/ecs_util.h
+%{_pkgconfigdir}/ogdi.pc
 
 %if %{with odbc}
 %files odbc

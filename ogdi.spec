@@ -20,7 +20,6 @@ Patch1:		%{name}-format.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
-BuildRequires:	proj-devel >= 4.8
 BuildRequires:	rpmbuild(macros) >= 1.446
 %{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
@@ -51,7 +50,6 @@ Summary:	OGDI header files and documentation
 Summary(pl.UTF-8):	Pliki nagłówkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	proj-devel >= 4.8
 
 %description devel
 OGDI header files and developer's documentation.
@@ -93,7 +91,6 @@ cp -f %{SOURCE1} .
 TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 %configure \
 	--with-expat \
-	--with-proj \
 	--with-zlib
 
 # bash because of pushd/popd used in makefiles

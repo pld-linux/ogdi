@@ -8,7 +8,7 @@ Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
 Version:	4.0.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Databases
 #Source0Download: https://github.com/libogdi/ogdi/releases/
@@ -20,6 +20,7 @@ Patch1:		%{name}-format.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
+BuildRequires:	libtirpc-devel
 BuildRequires:	rpmbuild(macros) >= 1.446
 %{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
@@ -50,6 +51,7 @@ Summary:	OGDI header files and documentation
 Summary(pl.UTF-8):	Pliki nagłówkowe i dokumentacja OGDI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libtirpc-devel
 
 %description devel
 OGDI header files and developer's documentation.

@@ -7,13 +7,14 @@
 Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
-Version:	4.0.0
-Release:	2
+Version:	4.1.0
+%define	tagver	%(echo %{version} | tr . _)
+Release:	1
 License:	BSD-like
 Group:		Applications/Databases
 #Source0Download: https://github.com/libogdi/ogdi/releases/
-Source0:	https://github.com/libogdi/ogdi/archive/ogdi_4_0_0/%{name}-%{version}.tar.gz
-# Source0-md5:	d1d91f71b4748313d3f60c8f301e03da
+Source0:	https://github.com/libogdi/ogdi/releases/download/ogdi_%{tagver}/%{name}-%{version}.tar.gz
+# Source0-md5:	0e6259d55694f90b2099bbd901bdb161
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch1:		%{name}-format.patch
@@ -84,7 +85,7 @@ Tcl wrapper for OGDI.
 Interfejs Tcl do OGDI.
 
 %prep
-%setup -q -n ogdi-ogdi_4_0_0
+%setup -q
 %patch1 -p1
 
 cp -f %{SOURCE1} .
@@ -158,7 +159,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libogdi.so.4
 %dir %{_libdir}/ogdi
 %attr(755,root,root) %{_libdir}/ogdi/libadrg.so
-%attr(755,root,root) %{_libdir}/ogdi/libdted.so
 %attr(755,root,root) %{_libdir}/ogdi/libgdal.so
 %attr(755,root,root) %{_libdir}/ogdi/libremote.so
 %attr(755,root,root) %{_libdir}/ogdi/librpf.so

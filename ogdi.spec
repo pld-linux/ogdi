@@ -2,21 +2,21 @@
 #
 # Conditional build:
 %bcond_without	tcl	# disable gui and nviz
-%bcond_without	odbc	# disable unixODBC support
 #
 Summary:	Open Geographic Datastore Interface
 Summary(pl.UTF-8):	OGDI - otwarty interfejs do danych geograficznych
 Name:		ogdi
-Version:	4.1.0
+Version:	4.1.1
 %define	tagver	%(echo %{version} | tr . _)
 Release:	1
 License:	BSD-like
 Group:		Applications/Databases
 #Source0Download: https://github.com/libogdi/ogdi/releases/
 Source0:	https://github.com/libogdi/ogdi/releases/download/ogdi_%{tagver}/%{name}-%{version}.tar.gz
-# Source0-md5:	0e6259d55694f90b2099bbd901bdb161
+# Source0-md5:	af4e307565ef0cd846fd75927dea4d8b
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
+Patch0:		nullptr.patch
 Patch1:		%{name}-format.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
@@ -26,6 +26,7 @@ BuildRequires:	rpmbuild(macros) >= 1.446
 %{?with_tcl:BuildRequires:	tcl-devel}
 %{?with_odbc:BuildRequires:	unixODBC-devel}
 BuildRequires:	zlib-devel
+Obsoletes:	ogdi-odbc < 4.1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,18 +61,6 @@ OGDI header files and developer's documentation.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe i dokumentacja programisty do OGDI.
 
-%package odbc
-Summary:	ODBC driver for OGDI
-Summary(pl.UTF-8):	Sterownik ODBC do OGDI
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-
-%description odbc
-ODBC driver for OGDI.
-
-%description odbc -l pl.UTF-8
-Sterownik ODBC do OGDI.
-
 %package -n tcl-ogdi
 Summary:	Tcl wrapper for OGDI
 Summary(pl.UTF-8):	Interfejs Tcl do OGDI
@@ -86,7 +75,8 @@ Interfejs Tcl do OGDI.
 
 %prep
 %setup -q
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 cp -f %{SOURCE1} .
 
@@ -109,11 +99,6 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 %endif
 %{__make} -j 1 -C contrib/gdal \
 	OPTIMIZATION="%{rpmcflags}"
-%if %{with odbc}
-%{__make} -j 1 -C ogdi/attr_driver/odbc \
-	OPTIMIZATION="%{rpmcflags} -DDONT_TD_VOID" \
-	ODBC_LINKLIB="-lodbc"
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -122,7 +107,7 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 
 %{__make} -j 1 install \
 	SHELL=/bin/bash \
-	INST_INCLUDE=$RPM_BUILD_ROOT%{_includedir} \
+	INST_INCLUDE=$RPM_BUILD_ROOT%{_includedir}/%{name} \
 	INST_LIB=$RPM_BUILD_ROOT%{_libdir} \
 	INST_BIN=$RPM_BUILD_ROOT%{_bindir}
 
@@ -170,15 +155,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc ogdi.pdf
 %attr(755,root,root) %{_bindir}/ogdi-config
 %attr(755,root,root) %{_libdir}/libogdi.so
-%{_includedir}/ecs.h
-%{_includedir}/ecs_util.h
+%{_includedir}/ogdi
 %{_pkgconfigdir}/ogdi.pc
-
-%if %{with odbc}
-%files odbc
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ogdi/liblodbc.so
-%endif
 
 %if %{with tcl}
 %files -n tcl-ogdi

@@ -1,0 +1,20 @@
+--- ogdi-4.1.1/ogdi/gltpd/asyncsvr.c~	2024-02-01 16:10:47.000000000 +0100
++++ ogdi-4.1.1/ogdi/gltpd/asyncsvr.c	2024-12-06 09:52:26.346290322 +0100
+@@ -80,7 +80,7 @@
+ 
+ #define COMTIMEOUT 900
+ 
+-long timecount;
++time_t timecount;
+ 
+ static void dispatchno_1();
+ extern void ecsprog_1();
+@@ -533,7 +533,7 @@
+   struct timeval timeout;
+   xdrproc_t xdr_argument;
+   /*xdrproc_t xdr_result;*/
+-  long currenttime;
++  time_t currenttime;
+   
+   timeout.tv_sec = COMTIMEOUT;
+   timeout.tv_usec = 0;

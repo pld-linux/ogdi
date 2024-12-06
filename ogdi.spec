@@ -18,6 +18,7 @@ Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # Source1-md5:	029a8cdcd36bee73df92196ee769040e
 Patch0:		nullptr.patch
 Patch1:		%{name}-format.patch
+Patch2:		time.patch
 URL:		http://ogdi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	expat-devel
@@ -77,6 +78,7 @@ Interfejs Tcl do OGDI.
 %setup -q
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 cp -f %{SOURCE1} .
 
